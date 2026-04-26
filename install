@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Configuración de rutas
+INSTALL_DIR="$HOME/setup"
+FLAGS_DIR="$INSTALL_DIR/flags"
+FLAG_FILE="$FLAGS_DIR/installed"
+BASHRC="$HOME/.bashrc"
+
+# 1. Verificar si ya existe la bandera de instalación
+if [ -f "$FLAG_FILE" ]; then
+    echo "⚠️  Ya se detectó una instalación previa en: $INSTALL_DIR"
+    read -p "¿Estás seguro de que quieres volver a ejecutar el instalador? (s/N): " confirm
+    if [[ "$confirm" != "s" && "$confirm" != "S" ]]; then
+        echo "Operación cancelada."
+        exit 0
+    fi
+fi
+
+# 2. Asegurar que las carpetas existan
+mkdir -p "$FLAGS_DIR"
+mkdir -p "$INSTALL_DIR/tmp"
+mkdir -p "$INSTALL_DIR/files"
+
+# 3. Añadir la configuración a .bashrc (solo si no existe ya)
+if ! grep -q "Cargar todos los archivos de configuración personalizados" "$BASHRC"; then
+    echo "🔧 Añadiendo configuración a $BASHRC..."
+    
+    cat << 'EOF' >> "$BASHRC"
+
+# Cargar todos los archivos de configuración personalizados
+CUSTOM_DIR="$HOME/setup"
+
+if [ -d "$CUSTOM_DIR" ]; then
+    # Cargar aliases y exports
+    [ -f "$CUSTOM_DIR/aliases.sh" ] && source "$CUSTOM_DIR/aliases.sh"
+    [ -f "$CUSTOM_DIR/exports.sh" ] && source "$CUSTOM_DIR/exports.sh"
+
+    # Cargar todas las funciones automáticamente
+    for file in "$CUSTOM_DIR/functions/"*.sh; do
+        [ -r "$file" ] && source "$file"
+    done
+fi
+EOF
+    echo "✅ Configuración añadida exitosamente."
+else
+    echo "ℹ️  La configuración ya existía en $BASHRC, no se duplicó."
+fi
+
+# 4. Crear la bandera de instalación
+date > "$FLAG_FILE"
+echo "✅ Instalación completada. Recuerda ejecutar 'source ~/.bashrc' para aplicar los cambios."
+echo "Instalando Deno..."
+
+sleep 1
+
+curl -fsSL https://deno.land/install.sh | sh
