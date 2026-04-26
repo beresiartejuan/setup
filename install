@@ -48,9 +48,13 @@ fi
 
 # 4. Crear la bandera de instalación
 date > "$FLAG_FILE"
-echo "✅ Instalación completada. Recuerda ejecutar 'source ~/.bashrc' para aplicar los cambios."
-echo "Instalando Deno..."
+# 5. Instalar Deno si no está presente
+if command -v deno >/dev/null 2>&1; then
+    echo "ℹ️  Deno ya está instalado ($(deno --version | head -n 1)). Saltando instalación."
+else
+    echo "🚀 Instalando Deno..."
+    sleep 1
+    curl -fsSL https://deno.land/install.sh | sh
+fi
 
-sleep 1
-
-curl -fsSL https://deno.land/install.sh | sh
+echo "✅ Proceso finalizado. Recuerda ejecutar 'source ~/.bashrc' para aplicar los cambios."
