@@ -1,5 +1,8 @@
 # Setup Personal
 
+> [!IMPORTANT]
+> Este repo esta enfocado en sistemas linux.
+
 Colección de mis configuraciones personalizadas para el entorno de desarrollo en bash.
 
 ## 📦 Contenido
