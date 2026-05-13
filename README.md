@@ -12,11 +12,38 @@ Este repositorio contiene mis configuraciones personales que uso para mejorar mi
 
 ## 🔧 Características
 
-### Funciones incluidas
+### CLIs Disponibles
 
-- `gi` - Genera archivos .gitignore usando plantillas de [gitignore.io](https://gitignore.io)
+#### `gi` - Generador de .gitignore
+CLI para generar archivos .gitignore usando plantillas de [gitignore.io](https://gitignore.io)
+
+```bash
+gi node,macos,vscode
+```
+
+#### `note` - Gestor de notas personal
+CLI para crear, listar, editar y eliminar notas en Markdown
+
+```bash
+note new "Mi Idea"
+note ls
+note show "mi-idea"
+note edit "mi-idea"
+note rm "mi-idea"
+note pin "mi-idea"
+```
+
+#### `spnpm` - PNPM sandboxeado
+Comando `pnpm` con protección systemd-run para mayor seguridad
+
+```bash
+spnpm install
+spnpm run dev
+```
+
+### Otros wrappers
+
 - `rm` - Wrapper seguro para el comando `rm` que previene borrado accidental del directorio raíz
-- `spnpm` - Comando `pnpm` con sandboxing usando `systemd-run` para mayor seguridad
 
 ### Alias
 
