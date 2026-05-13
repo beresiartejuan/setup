@@ -57,4 +57,13 @@ else
     curl -fsSL https://deno.land/install.sh | sh
 fi
 
+# 6. Instalar pnpm si no está presente
+if command -v pnpm >/dev/null 2>&1; then
+    echo "ℹ️  pnpm ya está instalado ($(pnpm --version)). Saltando instalación."
+else
+    echo "🚀 Instalando pnpm..."
+    sleep 1
+    curl -fsSL https://get.pnpm.io/install.sh | sh -
+fi
+
 echo "✅ Proceso finalizado. Recuerda ejecutar 'source ~/.bashrc' para aplicar los cambios."
