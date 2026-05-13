@@ -4,7 +4,7 @@ update-all() {
     
     # Detectar y ejecutar gestores de paquetes disponibles
     if command -v pacman >/dev/null 2>&1; then
-        # Arch Linux - ejecutar todos los gestores AUR disponibles + pacman
+        # Arch Linux - ejecutar todos los gestores AUR disponibles
         if command -v yay >/dev/null 2>&1; then
             echo "📦 Actualizando con yay (Arch + AUR)"
             yay -Syu
@@ -23,11 +23,10 @@ update-all() {
             updated=true
         fi
         
-        # Si no hay gestores AUR, usar pacman
-        if [ "$updated" = false ]; then
-            echo "📦 Actualizando con pacman (Arch)"
-            sudo pacman -Syu
-        fi
+        # Siempre ejecutar pacman para actualizar paquetes base del sistema
+        echo "📦 Actualizando con pacman (Arch base packages)"
+        sudo pacman -Syu
+        updated=true
     elif command -v apt >/dev/null 2>&1; then
         # Debian/Ubuntu
         echo "📦 Actualizando con apt (Debian/Ubuntu)"
