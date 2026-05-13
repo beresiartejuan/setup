@@ -1,3 +1,5 @@
+#!/bin/bash
+
 update-all() {
     echo "🔄 Actualizando sistema..."
     local updated=false
