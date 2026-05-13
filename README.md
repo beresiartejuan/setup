@@ -1,38 +1,54 @@
-# 🛠️ Terminal Setup & Utilities
+# Setup Personal
 
-Este repositorio contiene mis configuraciones personalizadas de terminal, scripts de automatización y herramientas útiles para potenciar el flujo de trabajo en Bash.
+Colección de mis configuraciones personalizadas para el entorno de desarrollo en bash.
 
-## 🚀 Características
+## 📦 Contenido
 
-- **Modularidad:** Carga automáticamente archivos de `aliases.sh`, `exports.sh` y todas las funciones dentro de `functions/*.sh`.
-- **Instalación Limpia:** Script de instalación inteligente que evita duplicados en `.bashrc` y utiliza banderas para detectar instalaciones previas.
-- **Deno Ready:** Preparado para ejecutar mini-programas de consola escritos en TypeScript/JavaScript mediante Deno.
-- **Utilidades Incluidas:**
-  - `gi`: Generador instantáneo de archivos `.gitignore` utilizando la API de Toptal.
+Este repositorio contiene mis configuraciones personales que uso para mejorar mi flujo de trabajo en sistemas Unix/Linux. Incluye:
 
-## 📦 Instalación
+- Aliases útiles para comandos comunes
+- Funciones personalizadas de shell
+- Configuraciones de exportación de variables de entorno
 
-Para instalar estas herramientas en tu entorno local, clona este repositorio en `~/setup` y ejecuta el script de instalación:
+## 🔧 Características
+
+### Funciones incluidas
+
+- `gi` - Genera archivos .gitignore usando plantillas de [gitignore.io](https://gitignore.io)
+- `rm` - Wrapper seguro para el comando `rm` que previene borrado accidental del directorio raíz
+- `spnpm` - Comando `pnpm` con sandboxing usando `systemd-run` para mayor seguridad
+
+### Alias
+
+- `npm` redirige automáticamente a `pnpm` para mejorar el rendimiento
+
+## 🚀 Instalación
 
 ```bash
 git clone https://github.com/tu-usuario/setup.git ~/setup
 cd ~/setup
 ./install
-source ~/.bashrc
 ```
 
-El instalador se encargará de:
-1. Crear las carpetas necesarias (`db`, `files`, `flags`, `tmp`).
-2. Configurar tu `.bashrc` para cargar automáticamente los módulos.
-3. Verificar e instalar **Deno** si no está presente en el sistema.
+El instalador:
+1. Agrega las configuraciones a tu `~/.bashrc`
+2. Crea enlaces simbólicos necesarios
+3. No modifica ningún archivo existente sin pedir confirmación
 
-## 📂 Estructura del Proyecto
+## 🔄 Actualización
 
-- `aliases.sh`: Definiciones de alias personalizados.
-- `exports.sh`: Variables de entorno y configuraciones de PATH.
-- `functions/`: Directorio para funciones de Bash reutilizables.
-- `modules/`: Programas y scripts más complejos (Deno).
-- `files/` & `db/`: Almacenamiento local para herramientas que lo requieran.
+Para actualizar las configuraciones simplemente haz:
 
----
-✨ Mantén tu terminal organizada y productiva.
+```bash
+cd ~/setup
+git pull
+```
+
+Las nuevas funciones y aliases se cargarán automáticamente en tu próxima sesión.
+
+## 🛡️ Seguridad
+
+Las funciones incluyen medidas de seguridad como:
+- Protección contra borrado del directorio raíz
+- Sandboxing para comandos de paquetes con systemd
+- Restricciones de privilegios y directorios temporales privados
